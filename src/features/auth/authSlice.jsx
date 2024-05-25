@@ -58,8 +58,12 @@ const authSlice = createSlice({
       })
       .addCase(signup.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
-      });
+        if (action.payload.includes('User already exists')) {
+          state.error = 'Email already in use';
+        } else {
+          state.error = action.payload;
+        }
+      })
   },
 });
 

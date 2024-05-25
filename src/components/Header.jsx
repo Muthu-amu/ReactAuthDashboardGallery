@@ -1,8 +1,6 @@
-// Header.jsx
-
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Dropdown, Menu, Avatar } from 'antd';
+import { Menu, Dropdown, Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { logout } from '../features/auth/authSlice.jsx';

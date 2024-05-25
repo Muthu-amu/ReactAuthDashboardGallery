@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { signup, login } from '../features/auth/authSlice.jsx';
+import { signup } from '../features/auth/authSlice.jsx';
 import { Button, Alert } from 'antd';
 import { Link } from 'react-router-dom';
 
@@ -21,6 +21,7 @@ const SignUp = () => {
     try {
       await dispatch(signup(values));
       setSubmitting(false);
+      navigate('/login'); // Redirect to login after successful signup
     } catch (error) {
       setSubmitting(false);
     }
@@ -55,8 +56,8 @@ const SignUp = () => {
           </Form>
         )}
       </Formik>
-      <Link to="/login">Already have an account? Log In</Link>
-    </div>
+    <Link to="/login">Already have an account? Log In</Link>
+  </div>
   );
 };
 
