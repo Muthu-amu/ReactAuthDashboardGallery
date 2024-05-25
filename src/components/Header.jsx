@@ -1,5 +1,7 @@
+// Header.jsx
+
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Dropdown, Menu, Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
@@ -7,25 +9,27 @@ import { logout } from '../features/auth/authSlice.jsx';
 
 const Header = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    // You can also perform any other necessary cleanup or redirection here
+  };
+
+  const menuItems = [
+    { key: '1', title: 'Dashboard', link: '/dashboard' },
+    { key: '2', title: 'Photo Gallery', link: '/photo-gallery' },
+    { key: '3', title: 'Portfolio', link: '/portfolio' },
+    { key: '4', title: 'Account Settings', link: '/account-settings' },
+    { key: '5', title: 'Logout', onClick: handleLogout },
+  ];
 
   const menu = (
     <Menu>
-      <Menu.Item key="1">
-        <Link to="/dashboard">Dashboard</Link>
-      </Menu.Item>
-      <Menu.Item key="2">
-        <Link to="/photo-gallery">Photo Gallery</Link>
-      </Menu.Item>
-      <Menu.Item key="3">
-        <Link to="/portfolio">Portfolio</Link>
-      </Menu.Item>
-      <Menu.Item key="4">
-        <Link to="/account-settings">Account Settings</Link>
-      </Menu.Item>
-      <Menu.Item key="5" onClick={() => dispatch(logout())}>
-        Logout
-      </Menu.Item>
+      {menuItems.map(item => (
+        <Menu.Item key={item.key}>
+          {item.link ? <Link to={item.link}>{item.title}</Link> : <span onClick={item.onClick}>{item.title}</span>}
+        </Menu.Item>
+      ))}
     </Menu>
   );
 
